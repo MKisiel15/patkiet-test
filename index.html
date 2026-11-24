@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parkiet Miarecki – Producent Parkietów i Usługi Parkieciarskie</title>
+    <meta name="description" content="Wytwórnia parkietów z ponad 30-letnią tradycją. Sezonowane drewno dębowe, jesionowe i bukowe (6-8% wilgotności), mistrzowski montaż, chemia Berger-Seidle i SLC oraz osuszanie budynków.">
+
+    <!-- Google Fonts: Playfair Display (rzemieślnicza elegancja) + Plus Jakarta Sans (nowoczesna czytelność) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Konfiguracja Tailwind oraz Design System (CSS Variables do przeniesienia na wszystkie podstrony) -->
+    <style>
+        :root {
+            --color-bg-primary: #FAF8F5;      /* Złamana biel - główne tło */
+            --color-bg-secondary: #F0EBE1;    /* Ciepły beż / piaskowiec - sekcje naprzemienne */
+            --color-bg-card: #FFFFFF;         /* Czysta biel kart */
+            --color-dark: #1F1B18;            /* Ciemny orzech / grafit - nagłówki, stopka */
+            --color-dark-soft: #3A332D;       /* Miękki brąz - tekst główny */
+            --color-muted: #6E655D;           /* Przygaszony tekst pomocniczy */
+            --color-accent: #9E6B3B;          /* Miodowy dąb - główny akcent */
+            --color-accent-hover: #7D522A;    /* Ciemniejszy dąb po najechaniu */
+            --color-border: #E2D9CC;          /* Subtelna linia podziału */
+
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            --shadow-soft: 0 10px 30px -10px rgba(31, 27, 24, 0.08);
+            --shadow-hover: 0 20px 40px -15px rgba(31, 27, 24, 0.14);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+        }
+
+        body {
+            background-color: var(--color-bg-primary);
+            color: var(--color-dark-soft);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-serif-brand {
+            font-family: var(--font-serif);
+            color: var(--color-dark);
+        }
+
+        /* Spójne przyciski i akcenty */
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: #FFFFFF;
+            transition: all 0.25s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--color-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -6px rgba(158, 107, 59, 0.5);
+        }
+
+        .btn-outline {
+            border: 1.5px solid var(--color-dark);
+            color: var(--color-dark);
+            background-color: transparent;
+            transition: all 0.25s ease;
+        }
+        .btn-outline:hover {
+            background-color: var(--color-dark);
+            color: #FAF8F5;
+            transform: translateY(-2px);
+        }
+
+        /* Rozwijane menu Oferta (Desktop) */
+        .nav-dropdown-wrapper:hover .nav-dropdown-menu,
+        .nav-dropdown-wrapper:focus-within .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Subtelna animacja kart */
+        .craft-card {
+            background-color: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .craft-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-accent);
+        }
+
+        /* Dekoracyjne słoje drewna w tle Hero */
+        .wood-pattern-overlay {
+            background-image: radial-gradient(rgba(158, 107, 59, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Zarządzanie widokami podstron (SPA Routing) */
+        .page-view {
+            display: none;
+            animation: pageFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .page-view.active {
+            display: block;
+        }
+
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Aktywny link nawigacji */
+        .nav-link-active {
+            color: var(--color-accent) !important;
+            background-color: rgba(240, 235, 225, 0.85) !important;
+            font-weight: 600 !important;
+        }
+
+        /* Przyciski filtrów w galerii */
+        .filter-btn.active {
+            background-color: var(--color-dark);
+            color: #FAF8F5;
+            border-color: var(--color-dark);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#9E6B3B] selection:text-white flex flex-col min-h-screen">
+
+    <!-- =====================================================================
+         1. WSPÓLNY HEADER & NAWIGACJA (Wspólny dla wszystkich 8 podstron)
+         ===================================================================== -->
+    <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E2D9CC]">
+        <!-- Górny pasek informacyjny (szybki kontakt na desktopie) -->
+        <div class="hidden lg:block bg-[#1F1B18] text-[#FAF8F5]/85 text-xs py-2">
+            <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                <div class="flex items-center space-x-6">
+                    <span class="flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-[#C6925E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Uprawniony Mistrz Parkieciarstwa • Ponad 30 lat doświadczenia
+                    </span>
+                    <span class="text-[#FAF8F5]/30">|</span>
+                    <span>Własna suszarnia • Wilgotność drewna 6–8%</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="tel:+48500123456" class="hover:text-[#C6925E] transition flex items-center gap-1.5 font-medium">
+                        <svg class="w-3.5 h-3.5 text-[#C6925E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        +48 500 123 456
+                    </a>
+                    <a href="mailto:kontakt@parkiet-przyklad.pl" class="hover:text-[#C6925E] transition">kontakt@parkiet-przyklad.pl</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Główny pasek nawigacji -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo firmy -->
+                <a href="#home" data-route="home" class="flex items-center gap-3 group focus:outline-none">
+                    <div class="w-10 h-10 rounded-xl bg-[#1F1B18] flex items-center justify-center text-[#FAF8F5] group-hover:bg-[#9E6B3B] transition-colors">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M4 18L12 10L20 18" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4 12L12 4L20 12" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 4V20" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-serif-brand text-xl sm:text-2xl font-bold tracking-tight text-[#1F1B18] block leading-none">
+                            Parkiet Miarecki
+                        </span>
+                        <span class="text-[11px] uppercase tracking-[0.2em] text-[#9E6B3B] font-semibold block mt-1">
+                            Wytwórnia & Rzemiosło
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Menu Desktop -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2" aria-label="Główna nawigacja">
+                    <a href="#home" data-route="home" class="nav-item px-3.5 py-2 rounded-lg text-sm font-medium text-[#1F1B18] hover:text-[#9E6B3B] hover:bg-[#F0EBE1]/50 transition nav-link-active">
+                        Strona główna
+                    </a>
+
+                    <!-- Rozwijana zakładka Oferta -->
+                    <div class="relative nav-dropdown-wrapper">
+                        <button type="button" id="desktop-offer-trigger" class="px-3.5 py-2 rounded-lg text-sm font-medium text-[#1F1B18] hover:text-[#9E6B3B] hover:bg-[#F0EBE1]/50 transition inline-flex items-center gap-1 focus:outline-none">
+                            <span>Oferta</span>
+                            <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <!-- Lista podstron oferty -->
+                        <div class="nav-dropdown-menu absolute left-0 mt-2 w-72 rounded-2xl bg-white border border-[#E2D9CC] shadow-xl p-2 z-50">
+                            <a href="#parkiety" data-route="parkiety" class="nav-item block px-4 py-3 rounded-xl hover:bg-[#FAF8F5] transition group">
+                                <span class="text-sm font-semibold text-[#1F1B18] group-hover:text-[#9E6B3B] block">Produkcja parkietów</span>
+                                <span class="text-xs text-[#6E655D]">Dąb, jesion, buk – klepka sezonowana</span>
+                            </a>
+                            <a href="#uslugi" data-route="uslugi" class="nav-item block px-4 py-3 rounded-xl hover:bg-[#FAF8F5] transition group">
+                                <span class="text-sm font-semibold text-[#1F1B18] group-hover:text-[#9E6B3B] block">Usługi parkieciarskie</span>
+                                <span class="text-xs text-[#6E655D]">Układanie, cyklinowanie, olejowanie</span>
+                            </a>
+                            <a href="#listwy-chemia" data-route="listwy-chemia" class="nav-item block px-4 py-3 rounded-xl hover:bg-[#FAF8F5] transition group">
+                                <span class="text-sm font-semibold text-[#1F1B18] group-hover:text-[#9E6B3B] block">Listwy i chemia</span>
+                                <span class="text-xs text-[#6E655D]">Cokoły, kleje i lakiery Berger-Seidle, SLC</span>
+                            </a>
+                            <a href="#osuszanie" data-route="osuszanie" class="nav-item block px-4 py-3 rounded-xl hover:bg-[#FAF8F5] transition group">
+                                <span class="text-sm font-semibold text-[#1F1B18] group-hover:text-[#9E6B3B] block">Osuszanie budynków</span>
+                                <span class="text-xs text-[#6E655D]">Pomiary wilgotności i osuszanie wnętrz</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="#realizacje" data-route="realizacje" class="nav-item px-3.5 py-2 rounded-lg text-sm font-medium text-[#1F1B18] hover:text-[#9E6B3B] hover:bg-[#F0EBE1]/50 transition">
+                        Realizacje
+                    </a>
+                    <a href="#cennik" data-route="cennik" class="nav-item px-3.5 py-2 rounded-lg text-sm font-medium text-[#1F1B18] hover:text-[#9E6B3B] hover:bg-[#F0EBE1]/50 transition">
+                        Cennik
+                    </a>
+                    <a href="#kontakt" data-route="kontakt" class="nav-item px-3.5 py-2 rounded-lg text-sm font-medium text-[#1F1B18] hover:text-[#9E6B3B] hover:bg-[#F0EBE1]/50 transition">
+                        Kontakt
+                    </a>
+                </nav>
+
+                <!-- Przycisk CTA (Desktop) + Hamburger (Mobile) -->
+                <div class="flex items-center gap-3">
+                    <a href="#kontakt" data-route="kontakt" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold btn-primary">
+                        <span>Darmowa wycena</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+
+                    <button id="mobile-menu-btn" type="button" class="md:hidden p-2.5 rounded-xl border border-[#E2D9CC] text-[#1F1B18] hover:bg-[#F0EBE1] focus:outline-none" aria-expanded="false" aria-label="Otwórz menu">
+                        <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Mobilne (rozwijane) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#FAF8F5] border-t border-[#E2D9CC] px-4 pt-3 pb-6 space-y-2 shadow-lg max-h-[85vh] overflow-y-auto">
+            <a href="#home" data-route="home" class="nav-item block px-4 py-3 rounded-xl font-medium text-[#1F1B18] hover:bg-[#F0EBE1] nav-link-active">Strona główna</a>
+            
+            <div class="px-4 py-2">
+                <p class="text-xs font-bold uppercase tracking-wider text-[#6E655D] mb-2">Nasza Oferta</p>
+                <div class="space-y-1 pl-2 border-l-2 border-[#9E6B3B]/40">
+                    <a href="#parkiety" data-route="parkiety" class="nav-item block px-3 py-2 rounded-lg text-sm font-medium text-[#1F1B18] hover:bg-[#F0EBE1]">Produkcja parkietów</a>
+                    <a href="#uslugi" data-route="uslugi" class="nav-item block px-3 py-2 rounded-lg text-sm font-medium text-[#1F1B18] hover:bg-[#F0EBE1]">Usługi parkieciarskie</a>
+                    <a href="#listwy-chemia" data-route="listwy-chemia" class="nav-item block px-3 py-2 rounded-lg text-sm font-medium text-[#1F1B18] hover:bg-[#F0EBE1]">Listwy wykończeniowe i chemia</a>
+                    <a href="#osuszanie" data-route="osuszanie" class="nav-item block px-3 py-2 rounded-lg text-sm font-medium text-[#1F1B18] hover:bg-[#F0EBE1]">Osuszanie budynków</a>
+                </div>
+            </div>
+
+            <a href="#realizacje" data-route="realizacje" class="nav-item block px-4 py-3 rounded-xl font-medium text-[#1F1B18] hover:bg-[#F0EBE1]">Realizacje</a>
+            <a href="#cennik" data-route="cennik" class="nav-item block px-4 py-3 rounded-xl font-medium text-[#1F1B18] hover:bg-[#F0EBE1]">Cennik</a>
+            <a href="#kontakt" data-route="kontakt" class="nav-item block px-4 py-3 rounded-xl font-medium text-[#1F1B18] hover:bg-[#F0EBE1]">Kontakt</a>
+
+            <div class="pt-3 px-2 flex flex-col gap-2">
+                <a href="#kontakt" data-route="kontakt" class="w-full text-center py-3.5 rounded-xl font-semibold btn-primary">Zamów darmową wycenę</a>
+                <a href="tel:+48500123456" class="w-full text-center py-3 rounded-xl font-semibold border border-[#E2D9CC] text-[#1F1B18]">Zadzwoń: +48 500 123 456</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- =====================================================================
+         GŁÓWNY KONTENER TREŚCI (Wszystkie 8 podstron przełączane płynnie)
+         ===================================================================== -->
+    <main class="flex-1">
+
+        <!-- =================================================================
+             PODSTRONA 1: STRONA GŁÓWNA (#home)
+             ================================================================= -->
+        <div id="page-home" class="page-view active">
+            <!-- Sekcja Hero -->
+            <section class="relative overflow-hidden wood-pattern-overlay pt-10 pb-16 sm:pt-16 sm:pb-24 lg:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+                        
+                        <div class="lg:col-span-7 space-y-6 sm:space-y-8">
+                            <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#F0EBE1] border border-[#E2D9CC]">
+                                <span class="w-2 h-2 rounded-full bg-[#9E6B3B]"></span>
+                                <span class="text-xs sm:text-sm font-semibold tracking-wide text-[#1F1B18]">
+                                    Ponad 30 lat tradycji • Bezpośrednio od producenta
+                                </span>
+                            </div>
+
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.12] tracking-tight text-[#1F1B18]">
+                                Naturalne parkiety od producenta. Od sezonowanego drewna po <span class="text-[#9E6B3B] italic font-normal">mistrzowski montaż</span>.
+                            </h1>
+
+                            <p class="text-base sm:text-lg text-[#3A332D] max-w-2xl leading-relaxed">
+                                Tworzymy podłogi na pokolenia. Oferujemy klepkę parkietową z selekcjonowanego dębu, jesionu i buku suszoną do idealnej wilgotności 6–8%, profesjonalne układanie przez uprawnionego mistrza parkieciarstwa oraz sprawdzoną chemię parkieciarską.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                                <a href="#parkiety" data-route="parkiety" class="px-7 py-4 rounded-xl text-base font-semibold btn-primary text-center inline-flex items-center justify-center gap-2">
+                                    <span>Poznaj nasze parkiety</span>
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                </a>
+                                <a href="#kontakt" data-route="kontakt" class="px-7 py-4 rounded-xl text-base font-semibold btn-outline text-center inline-flex items-center justify-center gap-2">
+                                    <span>Zamów wycenę</span>
+                                </a>
+                            </div>
+
+                            <div class="pt-4 border-t border-[#E2D9CC] flex flex-wrap items-center gap-x-8 gap-y-2 text-sm text-[#6E655D]">
+                                <span class="font-semibold text-[#1F1B18]">Dostępne gatunki:</span>
+                                <a href="#parkiety" data-route="parkiety" class="flex items-center gap-1.5 hover:text-[#9E6B3B]"><span class="w-3 h-3 rounded-full bg-[#B5895A] inline-block"></span> Dąb</a>
+                                <a href="#parkiety" data-route="parkiety" class="flex items-center gap-1.5 hover:text-[#9E6B3B]"><span class="w-3 h-3 rounded-full bg-[#D7B98E] inline-block"></span> Jesion</a>
+                                <a href="#parkiety" data-route="parkiety" class="flex items-center gap-1.5 hover:text-[#9E6B3B]"><span class="w-3 h-3 rounded-full bg-[#C99A73] inline-block"></span> Buk</a>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-5 relative">
+                            <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] bg-[#E2D9CC]">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1000&q=85" 
+                                    alt="Elegancki naturalny parkiet dębowy w jasnym wnętrzu" 
+                                    class="w-full h-full object-cover"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/800x1000/D5C3AE/1F1B18?text=Naturalny+Parkiet+D%C4%99bowy';"
+                                >
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#1F1B18]/70 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-5 left-5 right-5 text-white">
+                                    <p class="text-xs uppercase tracking-widest text-[#E5C199] font-semibold">Rzemiosło najwyższej próby</p>
+                                    <p class="font-serif-brand text-xl mt-0.5">Klepka dębowa sezonowana i suszona komorowo</p>
+                                </div>
+                            </div>
+
+                            <div class="hidden sm:flex items-center gap-3.5 bg-white p-4 rounded-2xl shadow-xl border border-[#E2D9CC] absolute -bottom-6 -left-8 max-w-xs">
+                                <div class="w-12 h-12 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-[#1F1B18]">Gwarancja stabilności</p>
+                                    <p class="text-xs text-[#6E655D]">Pakowanie w folię termokurczliwą chroniącą przed wilgocią</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pasek Zaufania (4 filary jakości) -->
+            <section class="bg-[#1F1B18] text-[#FAF8F5] py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-[#9E6B3B]/20 border border-[#9E6B3B]/40 flex items-center justify-center text-[#D8A36E] shrink-0 font-serif-brand font-bold text-lg">
+                                30+
+                            </div>
+                            <div>
+                                <h2 class="font-serif-brand text-lg font-semibold text-white">30+ lat doświadczenia</h2>
+                                <p class="text-sm text-[#FAF8F5]/75 mt-1">Trzy dekady praktyki w produkcji klepki parkietowej i obróbce litego drewna.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-[#9E6B3B]/20 border border-[#9E6B3B]/40 flex items-center justify-center text-[#D8A36E] shrink-0 font-serif-brand font-bold text-sm">
+                                6–8%
+                            </div>
+                            <div>
+                                <h2 class="font-serif-brand text-lg font-semibold text-white">Wilgotność 6–8%</h2>
+                                <p class="text-sm text-[#FAF8F5]/75 mt-1">Precyzyjne suszenie i zabezpieczenie folią termokurczliwą przed rozsychaniem.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-[#9E6B3B]/20 border border-[#9E6B3B]/40 flex items-center justify-center text-[#D8A36E] shrink-0">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                            </div>
+                            <div>
+                                <h2 class="font-serif-brand text-lg font-semibold text-white">Mistrz Parkieciarstwa</h2>
+                                <p class="text-sm text-[#FAF8F5]/75 mt-1">Fachowe doradztwo i montaż prowadzony przez uprawnionego mistrza rzemiosła.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-[#9E6B3B]/20 border border-[#9E6B3B]/40 flex items-center justify-center text-[#D8A36E] shrink-0">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                            </div>
+                            <div>
+                                <h2 class="font-serif-brand text-lg font-semibold text-white">Certyfikowana chemia</h2>
+                                <p class="text-sm text-[#FAF8F5]/75 mt-1">Pracujemy na ekologicznych systemach marek Berger-Seidle oraz SLC.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sekcja Oferta (4 karty prowadzące do podstron) -->
+            <section class="py-20 sm:py-28">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl mx-auto text-center mb-14 sm:mb-16">
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Kompleksowa obsługa</span>
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-2">Nasza Oferta</h2>
+                        <p class="text-[#6E655D] mt-4 text-base sm:text-lg">
+                            Od surowej deski sezonowanej w naszej wytwórni, aż po perfekcyjnie wykończoną podłogę w Twoim domu. Wybierz interesujący Cię obszar.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <a href="#parkiety" data-route="parkiety" class="craft-card group overflow-hidden flex flex-col">
+                            <div class="h-60 overflow-hidden bg-[#E2D9CC] relative">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=900&q=80" 
+                                    alt="Klepka parkietowa z drewna dębowego, jesionowego i bukowego" 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/800x500/C9B39B/1F1B18?text=Produkcja+Parkiet%C3%B3w';"
+                                >
+                                <span class="absolute top-4 left-4 bg-[#1F1B18]/90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">
+                                    Własna produkcja
+                                </span>
+                            </div>
+                            <div class="p-7 sm:p-8 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold group-hover:text-[#9E6B3B] transition-colors">Produkcja parkietów</h3>
+                                    <p class="text-[#3A332D] mt-3 text-sm sm:text-base">
+                                        Tradycyjna klepka parkietowa z litego drewna dębowego, jesionowego oraz bukowego. Starannie selekcjonowana, sezonowana i suszona do 6–8% wilgotności.
+                                    </p>
+                                </div>
+                                <div class="mt-6 pt-4 border-t border-[#E2D9CC] flex items-center justify-between text-sm font-semibold text-[#9E6B3B]">
+                                    <span>Sprawdź gatunki i klasy drewna</span>
+                                    <svg class="w-5 h-5 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#uslugi" data-route="uslugi" class="craft-card group overflow-hidden flex flex-col">
+                            <div class="h-60 overflow-hidden bg-[#E2D9CC] relative">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1622372738946-62e02505feb3?auto=format&fit=crop&w=900&q=80" 
+                                    alt="Układanie i cyklinowanie parkietu przez mistrza parkieciarstwa" 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/800x500/B89F84/1F1B18?text=Us%C5%82ugi+Parkieciarskie';"
+                                >
+                                <span class="absolute top-4 left-4 bg-[#9E6B3B] text-white text-xs font-semibold px-3 py-1.5 rounded-lg">
+                                    Mistrz Parkieciarstwa
+                                </span>
+                            </div>
+                            <div class="p-7 sm:p-8 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold group-hover:text-[#9E6B3B] transition-colors">Usługi parkieciarskie</h3>
+                                    <p class="text-[#3A332D] mt-3 text-sm sm:text-base">
+                                        Kompleksowe układanie parkietów (klasycznie i w jodełkę), bezpyłowe cyklinowanie, szpachlowanie, lakierowanie oraz olejowoskowanie z fachowym doradztwem technicznym.
+                                    </p>
+                                </div>
+                                <div class="mt-6 pt-4 border-t border-[#E2D9CC] flex items-center justify-between text-sm font-semibold text-[#9E6B3B]">
+                                    <span>Zobacz zakres prac i technologie</span>
+                                    <svg class="w-5 h-5 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#listwy-chemia" data-route="listwy-chemia" class="craft-card group overflow-hidden flex flex-col">
+                            <div class="h-60 overflow-hidden bg-[#E2D9CC] relative">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80" 
+                                    alt="Listwy wykończeniowe oraz profesjonalna chemia parkieciarska" 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/800x500/D1C2B0/1F1B18?text=Listwy+i+Chemia';"
+                                >
+                                <span class="absolute top-4 left-4 bg-[#1F1B18]/90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">
+                                    Berger-Seidle & SLC
+                                </span>
+                            </div>
+                            <div class="p-7 sm:p-8 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold group-hover:text-[#9E6B3B] transition-colors">Listwy wykończeniowe i chemia</h3>
+                                    <p class="text-[#3A332D] mt-3 text-sm sm:text-base">
+                                        Dopasowane listwy przypodłogowe i cokoły oraz ekologiczne kleje, grunty, lakiery, oleje i środki do codziennej pielęgnacji renomowanych producentów.
+                                    </p>
+                                </div>
+                                <div class="mt-6 pt-4 border-t border-[#E2D9CC] flex items-center justify-between text-sm font-semibold text-[#9E6B3B]">
+                                    <span>Przejdź do akcesoriów i chemii</span>
+                                    <svg class="w-5 h-5 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#osuszanie" data-route="osuszanie" class="craft-card group overflow-hidden flex flex-col">
+                            <div class="h-60 overflow-hidden bg-[#E2D9CC] relative">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80" 
+                                    alt="Profesjonalne osuszanie budynków i pomiary wilgotności posadzek" 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/800x500/B5A898/1F1B18?text=Osuszanie+Budynk%C3%B3w';"
+                                >
+                                <span class="absolute top-4 left-4 bg-[#1F1B18]/90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">
+                                    Usługa specjalistyczna
+                                </span>
+                            </div>
+                            <div class="p-7 sm:p-8 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold group-hover:text-[#9E6B3B] transition-colors">Osuszanie budynków</h3>
+                                    <p class="text-[#3A332D] mt-3 text-sm sm:text-base">
+                                        Precyzyjne pomiary wilgotności wylewek i ścian oraz profesjonalne osuszanie pomieszczeń przed montażem podłóg drewnianych lub po zalaniach.
+                                    </p>
+                                </div>
+                                <div class="mt-6 pt-4 border-t border-[#E2D9CC] flex items-center justify-between text-sm font-semibold text-[#9E6B3B]">
+                                    <span>Dowiedz się więcej o osuszaniu</span>
+                                    <svg class="w-5 h-5 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Manifest Rzemiosła -->
+            <section class="bg-[#F0EBE1] py-20 sm:py-28 border-y border-[#E2D9CC]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <div class="lg:col-span-5 order-2 lg:order-1">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-4">
+                                    <img 
+                                        src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=600&q=80" 
+                                        alt="Usłojenie naturalnego dębu" 
+                                        class="rounded-2xl shadow-md w-full h-56 object-cover border-2 border-white"
+                                        onerror="this.onerror=null; this.src='https://placehold.co/400x500/9E6B3B/FFFFFF?text=D%C4%85b';"
+                                    >
+                                    <div class="bg-[#1F1B18] text-[#FAF8F5] p-5 rounded-2xl">
+                                        <p class="font-serif-brand text-2xl font-bold text-[#D8A36E]">100%</p>
+                                        <p class="text-xs text-[#FAF8F5]/80 mt-1">Naturalny, odnawialny surowiec przyjazny alergikom i domownikom.</p>
+                                    </div>
+                                </div>
+                                <div class="pt-8 space-y-4">
+                                    <div class="bg-white p-5 rounded-2xl border border-[#E2D9CC] shadow-sm">
+                                        <p class="font-serif-brand text-lg font-bold text-[#1F1B18]">Mikroklimat</p>
+                                        <p class="text-xs text-[#6E655D] mt-1">Drewno oddycha, naturalnie regulując wilgotność powietrza w domu.</p>
+                                    </div>
+                                    <img 
+                                        src="https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?auto=format&fit=crop&w=600&q=80" 
+                                        alt="Ciepła drewniana podłoga w salonie" 
+                                        class="rounded-2xl shadow-md w-full h-56 object-cover border-2 border-white"
+                                        onerror="this.onerror=null; this.src='https://placehold.co/400x500/B8936C/FFFFFF?text=Jesion';"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-7 order-1 lg:order-2 space-y-6">
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Natura i zdrowie</span>
+                            <h2 class="text-3xl sm:text-4xl font-bold leading-tight">
+                                Dlaczego warto postawić na prawdziwy, lity parkiet?
+                            </h2>
+                            <p class="text-[#3A332D] text-base sm:text-lg leading-relaxed">
+                                W dobie sztucznych paneli i syntetycznych okładzin, naturalne drewno pozostaje synonimem spokoju, trwałości i domowego ciepła. Podłoga z litej klepki nie elektryzuje się, nie przyciąga kurzu i można ją wielokrotnie odnawiać przez dziesięciolecia.
+                            </p>
+
+                            <div class="space-y-4 pt-2">
+                                <div class="bg-white/80 p-5 rounded-2xl border border-[#E2D9CC]">
+                                    <h3 class="text-lg font-bold text-[#1F1B18] flex items-center gap-2">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#9E6B3B]"></span>
+                                        Dąb szlachetny i olejowoskowany
+                                    </h3>
+                                    <p class="text-sm text-[#3A332D] mt-1.5">
+                                        Król polskich podłóg. Niezwykle twardy, odporny na ścieranie i szlachetnie starzejący się z biegiem lat. Wykończony naturalnym olejowoskiem podkreśla rysunek słojów i daje przyjemne, ciepłe odczucie pod bosą stopą.
+                                    </p>
+                                </div>
+
+                                <div class="bg-white/80 p-5 rounded-2xl border border-[#E2D9CC]">
+                                    <h3 class="text-lg font-bold text-[#1F1B18] flex items-center gap-2">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#C89F72]"></span>
+                                        Jesion – wyrazisty rysunek i sprężystość
+                                    </h3>
+                                    <p class="text-sm text-[#3A332D] mt-1.5">
+                                        Twardością dorównuje dębowi, zachwycając jednocześnie jasną barwą i bogatym, dynamicznym usłojeniem. Doskonale rozświetla nowoczesne oraz klasyczne wnętrza.
+                                    </p>
+                                </div>
+
+                                <div class="bg-white/80 p-5 rounded-2xl border border-[#E2D9CC]">
+                                    <h3 class="text-lg font-bold text-[#1F1B18] flex items-center gap-2">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#B98563]"></span>
+                                        Buk – jednolita struktura i ciepły odcień
+                                    </h3>
+                                    <p class="text-sm text-[#3A332D] mt-1.5">
+                                        Ceniony za subtelną, spokojną strukturę i lekko miodowo-różowy odcień, który wprowadza do sypialni i salonów przytulną, harmonijną atmosferę.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Wybrane Realizacje (Mini-galeria) -->
+            <section class="py-20 sm:py-28">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Efekty naszej pracy</span>
+                            <h2 class="text-3xl sm:text-4xl font-bold mt-2">Wybrane realizacje</h2>
+                        </div>
+                        <a href="#realizacje" data-route="realizacje" class="inline-flex items-center gap-2 text-sm font-semibold text-[#9E6B3B] hover:text-[#7D522A] transition">
+                            <span>Zobacz pełną galerię realizacji</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <article class="craft-card overflow-hidden group cursor-pointer" data-route="realizacje">
+                            <div class="aspect-[4/3] overflow-hidden bg-[#E2D9CC]">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=800&q=80" 
+                                    alt="Parkiet dębowy ułożony w jodełkę klasyczną" 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/600x450/C8B49E/1F1B18?text=D%C4%85b+Jode%C5%82ka';"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs font-semibold text-[#9E6B3B] uppercase tracking-wider">Dąb Natur • Jodełka</span>
+                                <h3 class="text-xl font-bold mt-1">Salon w domu jednorodzinnym</h3>
+                                <p class="text-sm text-[#6E655D] mt-2">
+                                    Klepka dębowa 70x350 mm ułożona w klasyczną jodełkę, wykończona matowym lakierem Berger-Seidle.
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="craft-card overflow-hidden group cursor-pointer" data-route="realizacje">
+                            <div class="aspect-[4/3] overflow-hidden bg-[#E2D9CC]">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=800&q=80" 
+                                    alt="Jasny parkiet jesionowy olejowoskowany" 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/600x450/D9C8B4/1F1B18?text=Jesion+Naturalny';"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs font-semibold text-[#9E6B3B] uppercase tracking-wider">Jesion Naturalny • Cegiełka</span>
+                                <h3 class="text-xl font-bold mt-1">Nowoczesny apartament</h3>
+                                <p class="text-sm text-[#6E655D] mt-2">
+                                    Jasny jesion zabezpieczony naturalnym olejowoskiem, uzupełniony białymi cokołami wykończeniowymi.
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="craft-card overflow-hidden group cursor-pointer" data-route="realizacje">
+                            <div class="aspect-[4/3] overflow-hidden bg-[#E2D9CC]">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" 
+                                    alt="Renowacja i cyklinowanie starego parkietu dębowego" 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/600x450/B3987A/1F1B18?text=Renowacja+Parkietu';"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs font-semibold text-[#9E6B3B] uppercase tracking-wider">Renowacja • Cyklinowanie</span>
+                                <h3 class="text-xl font-bold mt-1">Odnowienie 40-letniego parkietu</h3>
+                                <p class="text-sm text-[#6E655D] mt-2">
+                                    Bezpyłowe cyklinowanie, uzupełnienie ubytków spoiwem oraz ponowne lakierowanie wielowarstwowe.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sekcja Szybkiej Wyceny na Stronie Głównej -->
+            <section class="py-20 sm:py-24 bg-[#F0EBE1] border-t border-[#E2D9CC]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white rounded-3xl border border-[#E2D9CC] shadow-xl overflow-hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-12">
+                            <div class="lg:col-span-5 bg-[#1F1B18] text-[#FAF8F5] p-8 sm:p-12 flex flex-col justify-between">
+                                <div>
+                                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#D8A36E]">Kontakt i wycena</span>
+                                    <h2 class="text-3xl font-bold text-white mt-2">Porozmawiajmy o Twojej podłodze</h2>
+                                    <p class="text-[#FAF8F5]/75 text-sm sm:text-base mt-4 leading-relaxed">
+                                        Szukasz solidnego parkietu prosto z wytwórni, potrzebujesz wyceny montażu albo profesjonalnego osuszenia posadzki? Napisz lub zadzwoń – doradzimy najlepsze rozwiązanie.
+                                    </p>
+
+                                    <div class="space-y-5 mt-8">
+                                        <div class="flex items-start gap-3.5">
+                                            <div class="w-10 h-10 rounded-xl bg-[#9E6B3B]/25 flex items-center justify-center text-[#D8A36E] shrink-0">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs uppercase tracking-wider text-[#FAF8F5]/60">Wytwórnia i punkt obsługi (Dane przykładowe)</p>
+                                                <p class="font-medium text-white mt-0.5">ul. Rzemieślnicza 14, 00-001 Przykładowo</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-start gap-3.5">
+                                            <div class="w-10 h-10 rounded-xl bg-[#9E6B3B]/25 flex items-center justify-center text-[#D8A36E] shrink-0">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs uppercase tracking-wider text-[#FAF8F5]/60">Telefon bezpośredni</p>
+                                                <a href="tel:+48500123456" class="font-semibold text-lg text-white hover:text-[#D8A36E] transition block mt-0.5">+48 500 123 456</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-10 pt-6 border-t border-white/10 text-xs text-[#FAF8F5]/60">
+                                    Poniedziałek – Piątek: 08:00 – 17:00 • Sobota: po umówieniu
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-7 p-8 sm:p-12">
+                                <h3 class="text-2xl font-bold text-[#1F1B18]">Formularz bezpłatnej wyceny</h3>
+                                <p class="text-sm text-[#6E655D] mt-1">Podaj podstawowe informacje – oddzwonimy z konkretną propozycją.</p>
+
+                                <form class="demo-contact-form mt-6 space-y-5">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-[#1F1B18] mb-1.5">Imię i nazwisko *</label>
+                                            <input type="text" required placeholder="np. Jan Kowalski"
+                                                class="w-full px-4 py-3 rounded-xl border border-[#E2D9CC] bg-[#FAF8F5] text-[#1F1B18] focus:outline-none focus:border-[#9E6B3B] focus:bg-white transition">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-[#1F1B18] mb-1.5">Numer telefonu *</label>
+                                            <input type="tel" required placeholder="np. 500 000 000"
+                                                class="w-full px-4 py-3 rounded-xl border border-[#E2D9CC] bg-[#FAF8F5] text-[#1F1B18] focus:outline-none focus:border-[#9E6B3B] focus:bg-white transition">
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-[#1F1B18] mb-1.5">Czego dotyczy zapytanie?</label>
+                                            <select class="w-full px-4 py-3 rounded-xl border border-[#E2D9CC] bg-[#FAF8F5] text-[#1F1B18] focus:outline-none focus:border-[#9E6B3B] focus:bg-white transition">
+                                                <option>Zakup parkietu z montażem</option>
+                                                <option>Zakup samego parkietu (klepki)</option>
+                                                <option>Cyklinowanie / renowacja podłogi</option>
+                                                <option>Osuszanie budynku / pomiar wilgotności</option>
+                                                <option>Listwy wykończeniowe / chemia</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-[#1F1B18] mb-1.5">Szacowany metraż (opcjonalnie)</label>
+                                            <input type="text" placeholder="np. ok. 45 m²"
+                                                class="w-full px-4 py-3 rounded-xl border border-[#E2D9CC] bg-[#FAF8F5] text-[#1F1B18] focus:outline-none focus:border-[#9E6B3B] focus:bg-white transition">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-semibold text-[#1F1B18] mb-1.5">Dodatkowe informacje</label>
+                                        <textarea rows="3" placeholder="Napisz, jaki gatunek drewna Cię interesuje (dąb, jesion, buk) lub podaj miejscowość inwestycji..."
+                                            class="w-full px-4 py-3 rounded-xl border border-[#E2D9CC] bg-[#FAF8F5] text-[#1F1B18] focus:outline-none focus:border-[#9E6B3B] focus:bg-white transition"></textarea>
+                                    </div>
+
+                                    <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold btn-primary inline-flex items-center justify-center gap-2">
+                                        <span>Wyślij zapytanie o wycenę</span>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                    </button>
+
+                                    <div class="form-feedback hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm">
+                                        <strong>Dziękujemy za wiadomość!</strong> Twoje zapytanie zostało przyjęte. Skontaktujemy się telefonicznie najszybciej jak to możliwe.
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- =================================================================
+             PODSTRONA 2: PRODUKCJA PARKIETÓW (#parkiety)
+             ================================================================= -->
+        <div id="page-parkiety" class="page-view">
+            <!-- Nagłówek podstrony -->
+            <section class="bg-[#F0EBE1] border-b border-[#E2D9CC] py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <nav class="text-xs sm:text-sm text-[#6E655D] mb-4 flex items-center gap-2">
+                        <a href="#home" data-route="home" class="hover:text-[#9E6B3B]">Strona główna</a>
+                        <span>/</span>
+                        <span>Oferta</span>
+                        <span>/</span>
+                        <span class="text-[#1F1B18] font-semibold">Produkcja parkietów</span>
+                    </nav>
+                    <h1 class="text-3xl sm:text-5xl font-bold text-[#1F1B18]">Produkcja parkietów z litego drewna</h1>
+                    <p class="text-[#3A332D] text-base sm:text-lg max-w-3xl mt-4">
+                        Od ponad 30 lat wytwarzamy tradycyjną klepkę parkietową z najlepszego polskiego surowca. Kontrolujemy każdy etap – od sezonowania tarcicy, przez precyzyjne suszenie komorowe, aż po pakowanie termokurczliwe.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 4-etapowy proces produkcji -->
+            <section class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-2xl mb-12">
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Technologia wytwórni</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold mt-2">Jak powstaje nasz parkiet?</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="craft-card p-6 sm:p-7">
+                            <span class="w-10 h-10 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] font-serif-brand font-bold text-lg flex items-center justify-center mb-5">01</span>
+                            <h3 class="text-xl font-bold mb-2">Selekcja i sezonowanie</h3>
+                            <p class="text-sm text-[#3A332D]">
+                                Pozyskujemy wyselekcjonowane drewno dębowe, jesionowe i bukowe. Tarcica jest naturalnie sezonowana, co redukuje naprężenia wewnętrzne surowca.
+                            </p>
+                        </div>
+
+                        <div class="craft-card p-6 sm:p-7">
+                            <span class="w-10 h-10 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] font-serif-brand font-bold text-lg flex items-center justify-center mb-5">02</span>
+                            <h3 class="text-xl font-bold mb-2">Suszenie do 6–8%</h3>
+                            <p class="text-sm text-[#3A332D]">
+                                W nowoczesnych suszarniach doprowadzamy drewno do rygorystycznego poziomu wilgotności <strong>6–8%</strong>, gwarantującego brak rozsychania po ułożeniu.
+                            </p>
+                        </div>
+
+                        <div class="craft-card p-6 sm:p-7">
+                            <span class="w-10 h-10 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] font-serif-brand font-bold text-lg flex items-center justify-center mb-5">03</span>
+                            <h3 class="text-xl font-bold mb-2">Precyzyjna obróbka</h3>
+                            <p class="text-sm text-[#3A332D]">
+                                Każda klepka jest frezowana z zachowaniem idealnej geometrii pióra i wpustu, co zapewnia perfekcyjne spasowanie wzoru (np. jodełki klasycznej).
+                            </p>
+                        </div>
+
+                        <div class="craft-card p-6 sm:p-7">
+                            <span class="w-10 h-10 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] font-serif-brand font-bold text-lg flex items-center justify-center mb-5">04</span>
+                            <h3 class="text-xl font-bold mb-2">Folia termokurczliwa</h3>
+                            <p class="text-sm text-[#3A332D]">
+                                Gotowe paczki zamykamy szczelnie w folię termokurczliwą, która chroni wysuszone klepki przed wchłanianiem wilgoci podczas transportu i składowania.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gatunki drewna -->
+            <section class="bg-[#F0EBE1] py-16 sm:py-24 border-y border-[#E2D9CC]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-14">
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Surowiec najwyższej jakości</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold mt-2">Dostępne gatunki drewna</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Dąb -->
+                        <div class="craft-card overflow-hidden flex flex-col">
+                            <div class="h-52 bg-[#B5895A] relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=700&q=80" alt="Parkiet dębowy" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                            </div>
+                            <div class="p-7 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="text-2xl font-bold">Parkiet Dębowy</h3>
+                                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-[#F0EBE1] text-[#9E6B3B]">Bestseller</span>
+                                    </div>
+                                    <p class="text-sm text-[#3A332D] mt-2">
+                                        Najbardziej ceniony gatunek w Polsce. Charakteryzuje się wysoką twardością, dużą gęstością oraz ponadczasową barwą – od jasnego słomkowego po ciepły brąz. Doskonale przyjmuje zarówno lakiery, jak i naturalne olejowoski.
+                                    </p>
+                                </div>
+                                <div class="mt-6 pt-4 border-t border-[#E2D9CC] text-xs text-[#6E655D] space-y-1">
+                                    <p><strong>Twardość (Brinell):</strong> ok. 3,7 – 4,0 (bardzo twardy)</p>
+                                    <p><strong>Zastosowanie:</strong> Salony, korytarze, schody, obiekty użyteczności publicznej</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Jesion -->
+                        <div class="craft-card overflow-hidden flex flex-col">
+                            <div class="h-52 bg-[#D7B98E] relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?auto=format&fit=crop&w=700&q=80" alt="Parkiet jesionowy" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                            </div>
+                            <div class="p-7 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="text-2xl font-bold">Parkiet Jesionowy</h3>
+                                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-[#F0EBE1] text-[#1F1B18]">Wyrazisty</span>
+                                    </div>
+                                    <p class="text-sm text-[#3A332D] mt-2">
+                                        Niezwykle twardy i sprężysty gatunek o jasnej, kremowo-złocistej kolorystyce oraz bogatym, dekoracyjnym rysunku słojów. Optycznie powiększa i rozjaśnia każde wnętrze.
+                                    </p>
+                                </div>
+                                <div class="mt-6 pt-4 border-t border-[#E2D9CC] text-xs text-[#6E655D] space-y-1">
+                                    <p><strong>Twardość (Brinell):</strong> ok. 3,8 – 4,1 (bardzo twardy)</p>
+                                    <p><strong>Zastosowanie:</strong> Nowoczesne salony, pokoje dzienne, wnętrza skandynawskie</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buk -->
+                        <div class="craft-card overflow-hidden flex flex-col">
+                            <div class="h-52 bg-[#C99A73] relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=700&q=80" alt="Parkiet bukowy" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                            </div>
+                            <div class="p-7 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="text-2xl font-bold">Parkiet Bukowy</h3>
+                                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-[#F0EBE1] text-[#1F1B18]">Harmonijny</span>
+                                    </div>
+                                    <p class="text-sm text-[#3A332D] mt-2">
+                                        Drewno o spokojnym, jednolitym usłojeniu i ciepłym odcieniu z delikatną nutą różu lub miodu. Nadaje pomieszczeniom przytulny, harmonijny i elegancki charakter.
+                                    </p>
+                                </div>
+                                <div class="mt-6 pt-4 border-t border-[#E2D9CC] text-xs text-[#6E655D] space-y-1">
+                                    <p><strong>Twardość (Brinell):</strong> ok. 3,4 – 3,8 (twardy)</p>
+                                    <p><strong>Zastosowanie:</strong> Sypialnie, pokoje dziecięce, gabinety</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Klasy jakości (Natur / Rustikal) oraz Wymiary -->
+            <section class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                        <!-- Klasy -->
+                        <div class="lg:col-span-6 space-y-6">
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Sortowanie klepek</span>
+                            <h2 class="text-3xl font-bold">Klasy jakości drewna</h2>
+                            <p class="text-sm sm:text-base text-[#3A332D]">
+                                Wszystkie klasy produkowane są z tego samego, pełnowartościowego i twardego drewna o wilgotności 6–8%. Różnią się wyłącznie naturalnym rysunkiem słojów i obecnością sęków.
+                            </p>
+
+                            <div class="space-y-4">
+                                <div class="craft-card p-6">
+                                    <h3 class="text-xl font-bold text-[#1F1B18]">Klasa I – Natur (Selekcjonowana)</h3>
+                                    <p class="text-sm text-[#3A332D] mt-2">
+                                        Klepki o spokojnym, harmonijnym układzie słojów (flader i błyszcz) oraz wyrównanej kolorystyce. Dopuszczalne jedynie minimalne, zdrowe oczka szpilkowe (do 2–3 mm) oraz naturalne różnice odcieni właściwe dla danego gatunku. Brak bieli na stronie licowej.
+                                    </p>
+                                </div>
+
+                                <div class="craft-card p-6">
+                                    <h3 class="text-xl font-bold text-[#1F1B18]">Klasa II – Rustikal (Naturalny charakter)</h3>
+                                    <p class="text-sm text-[#3A332D] mt-2">
+                                        Podłoga o wyrazistym, żywym charakterze podkreślającym naturalne pochodzenie drewna. Dopuszczalne zdrowe sęki, zróżnicowane usłojenie, kontrasty kolorystyczne oraz naturalny udział bieli. Idealna do wnętrz klasycznych, loftowych i rustykalnych.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Standardowe wymiary -->
+                        <div class="lg:col-span-6">
+                            <div class="craft-card p-7 sm:p-8">
+                                <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Specyfikacja techniczna</span>
+                                <h3 class="text-2xl font-bold mt-1 mb-4">Standardowe wymiary klepki</h3>
+                                <p class="text-sm text-[#6E655D] mb-6">
+                                    Grubość klepki wynosi standardowo <strong>22 mm</strong> (zapewnia wielokrotną możliwość cyklinowania przez dziesiątki lat).
+                                </p>
+
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left border-collapse text-sm">
+                                        <thead>
+                                            <tr class="border-b-2 border-[#E2D9CC] text-[#1F1B18]">
+                                                <th class="py-3 px-3 font-bold">Szerokość</th>
+                                                <th class="py-3 px-3 font-bold">Długości klepek</th>
+                                                <th class="py-3 px-3 font-bold">Grubość</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-[#E2D9CC]">
+                                            <tr>
+                                                <td class="py-3.5 px-3 font-semibold text-[#1F1B18]">50 mm</td>
+                                                <td class="py-3.5 px-3">250 / 300 / 350 / 400 mm</td>
+                                                <td class="py-3.5 px-3">22 mm</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-3.5 px-3 font-semibold text-[#1F1B18]">60 mm</td>
+                                                <td class="py-3.5 px-3">300 / 350 / 400 / 450 mm</td>
+                                                <td class="py-3.5 px-3">22 mm</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-3.5 px-3 font-semibold text-[#1F1B18]">70 mm</td>
+                                                <td class="py-3.5 px-3">350 / 420 / 490 / 500 mm</td>
+                                                <td class="py-3.5 px-3">22 mm</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="mt-8 pt-6 border-t border-[#E2D9CC] flex flex-col sm:flex-row gap-3">
+                                    <a href="#cennik" data-route="cennik" class="px-5 py-3 rounded-xl text-sm font-semibold btn-primary text-center flex-1">
+                                        Sprawdź cennik parkietów
+                                    </a>
+                                    <a href="#kontakt" data-route="kontakt" class="px-5 py-3 rounded-xl text-sm font-semibold btn-outline text-center flex-1">
+                                        Zapytaj o dostępność
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- =================================================================
+             PODSTRONA 3: USŁUGI PARKIECIARSKIE (#uslugi)
+             ================================================================= -->
+        <div id="page-uslugi" class="page-view">
+            <section class="bg-[#F0EBE1] border-b border-[#E2D9CC] py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <nav class="text-xs sm:text-sm text-[#6E655D] mb-4 flex items-center gap-2">
+                        <a href="#home" data-route="home" class="hover:text-[#9E6B3B]">Strona główna</a>
+                        <span>/</span>
+                        <span>Oferta</span>
+                        <span>/</span>
+                        <span class="text-[#1F1B18] font-semibold">Usługi parkieciarskie</span>
+                    </nav>
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E2D9CC] text-xs font-semibold text-[#9E6B3B] mb-4">
+                        Uprawniony Mistrz Parkieciarstwa
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-bold text-[#1F1B18]">Profesjonalne usługi parkieciarskie</h1>
+                    <p class="text-[#3A332D] text-base sm:text-lg max-w-3xl mt-4">
+                        Nawet najlepszy parkiet wymaga fachowego przygotowania podłoża i precyzyjnego montażu. Wszelkie prace wykonujemy pod nadzorem uprawnionego mistrza parkieciarstwa, z użyciem certyfikowanych technologii marek <strong>Berger-Seidle</strong> oraz <strong>SLC</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Zakres usług -->
+            <section class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="craft-card p-7">
+                            <div class="w-12 h-12 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center mb-5">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Ocena i gruntowanie podłoża</h3>
+                            <p class="text-sm text-[#3A332D] mt-3">
+                                Przed montażem wykonujemy precyzyjny pomiar wilgotności wylewki (metodą CM) oraz badanie jej wytrzymałości. Dobieramy odpowiednie grunty wzmacniające i odcinające wilgoć resztkową.
+                            </p>
+                        </div>
+
+                        <div class="craft-card p-7">
+                            <div class="w-12 h-12 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center mb-5">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Układanie parkietu we wzory</h3>
+                            <p class="text-sm text-[#3A332D] mt-3">
+                                Montaż klepki tradycyjnej na elastyczne, niskoemisyjne kleje dwuskładnikowe i silanowe (SLC). Układamy w jodełkę klasyczną, jodełkę podwójną, cegiełkę, kwadraty oraz wzory pałacowe.
+                            </p>
+                        </div>
+
+                        <div class="craft-card p-7">
+                            <div class="w-12 h-12 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center mb-5">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Bezpyłowe cyklinowanie</h3>
+                            <p class="text-sm text-[#3A332D] mt-3">
+                                Szlifowanie nowych oraz renowacja starych, zniszczonych podłóg drewnianych za pomocą nowoczesnych maszyn z wydajnym systemem odpylania oraz polerowanie tarczowe.
+                            </p>
+                        </div>
+
+                        <div class="craft-card p-7">
+                            <div class="w-12 h-12 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center mb-5">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Lakierowanie i olejowanie</h3>
+                            <p class="text-sm text-[#3A332D] mt-3">
+                                Zabezpieczanie powierzchni ekologicznymi lakierami poliuretanowymi (mat, półmat, połysk) lub naturalnymi olejowoskami marki Berger-Seidle podkreślającymi strukturę drewna.
+                            </p>
+                        </div>
+
+                        <div class="craft-card p-7">
+                            <div class="w-12 h-12 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center mb-5">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Montaż listew i cokołów</h3>
+                            <p class="text-sm text-[#3A332D] mt-3">
+                                Precyzyjne docinanie pod kątem i montaż drewnianych listew przypodłogowych oraz cokołów wykończeniowych z zachowaniem szczelin dylatacyjnych.
+                            </p>
+                        </div>
+
+                        <div class="craft-card p-7">
+                            <div class="w-12 h-12 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center mb-5">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Doradztwo techniczne</h3>
+                            <p class="text-sm text-[#3A332D] mt-3">
+                                Pomagamy dobrać gatunek drewna, wzór ułożenia oraz system wykończenia dopasowany do intensywności użytkowania pomieszczeń oraz ogrzewania podłogowego.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Baner zaufania chemii -->
+                    <div class="mt-14 bg-[#1F1B18] text-[#FAF8F5] rounded-3xl p-8 sm:p-12 flex flex-col lg:flex-row items-center justify-between gap-8">
+                        <div class="space-y-3 max-w-2xl">
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#D8A36E]">Bezpieczeństwo i ekologia</span>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white">Stawiamy na renomowane systemy Berger-Seidle i SLC</h3>
+                            <p class="text-sm sm:text-base text-[#FAF8F5]/80">
+                                Używamy wyłącznie atestowanej chemii parkieciarskiej o niskiej emisji lotnych związków organicznych (EC1), bezpiecznej dla domowników, dzieci i alergików.
+                            </p>
+                        </div>
+                        <a href="#kontakt" data-route="kontakt" class="px-7 py-4 rounded-xl font-semibold btn-primary shrink-0 w-full lg:w-auto text-center">
+                            Umów oględziny i wycenę
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- =================================================================
+             PODSTRONA 4: LISTWY I CHEMIA PARKIECIARSKA (#listwy-chemia)
+             ================================================================= -->
+        <div id="page-listwy-chemia" class="page-view">
+            <section class="bg-[#F0EBE1] border-b border-[#E2D9CC] py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <nav class="text-xs sm:text-sm text-[#6E655D] mb-4 flex items-center gap-2">
+                        <a href="#home" data-route="home" class="hover:text-[#9E6B3B]">Strona główna</a>
+                        <span>/</span>
+                        <span>Oferta</span>
+                        <span>/</span>
+                        <span class="text-[#1F1B18] font-semibold">Listwy i chemia</span>
+                    </nav>
+                    <h1 class="text-3xl sm:text-5xl font-bold text-[#1F1B18]">Listwy wykończeniowe i chemia parkieciarska</h1>
+                    <p class="text-[#3A332D] text-base sm:text-lg max-w-3xl mt-4">
+                        Kompletny asortyment niezbędny do prawidłowego montażu, zabezpieczenia oraz wieloletniej pielęgnacji podłóg drewnianych.
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+                    
+                    <!-- Część 1: Listwy wykończeniowe -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                        <div class="lg:col-span-5">
+                            <img 
+                                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" 
+                                alt="Drewniane listwy przypodłogowe i cokoły" 
+                                class="rounded-2xl shadow-lg border-4 border-white w-full h-80 object-cover"
+                                onerror="this.onerror=null; this.src='https://placehold.co/700x500/D1C2B0/1F1B18?text=Listwy+Wyko%C5%84czeniowe';"
+                            >
+                        </div>
+                        <div class="lg:col-span-7 space-y-5">
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Estetyczne wykończenie</span>
+                            <h2 class="text-3xl font-bold">Listwy przypodłogowe i cokoły</h2>
+                            <p class="text-[#3A332D] leading-relaxed">
+                                Odpowiednio dobrana listwa stanowi ramę dla całej podłogi i estetycznie maskuje szczelinę dylatacyjną przy ścianie. Oferujemy:
+                            </p>
+                            <ul class="space-y-3 text-sm sm:text-base text-[#3A332D]">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-5 h-5 rounded-full bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✓</span>
+                                    <span><strong>Listwy z litego drewna (dąb, jesion, buk):</strong> Idealnie dopasowane kolorystycznie i strukturalnie do naszych parkietów.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-5 h-5 rounded-full bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✓</span>
+                                    <span><strong>Cokoły proste oraz profilowane (klasyczne):</strong> Różne wysokości i grubości dopasowane do stylu wnętrza.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-5 h-5 rounded-full bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✓</span>
+                                    <span><strong>Listwy progowe i dylatacyjne:</strong> Drewniane profile łączące parkiet z płytkami lub innymi pomieszczeniami.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Część 2: Chemia parkieciarska -->
+                    <div>
+                        <div class="max-w-3xl mb-10">
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Sprawdzeni producenci</span>
+                            <h2 class="text-3xl font-bold mt-1">Chemia parkieciarska (Berger-Seidle, SLC)</h2>
+                            <p class="text-[#6E655D] mt-2">
+                                Prowadzimy sprzedaż profesjonalnych systemów chemii budowlanej, z których sami korzystamy na co dzień podczas prac montażowych.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div class="craft-card p-6">
+                                <span class="text-xs font-bold uppercase tracking-wider text-[#9E6B3B]">Krok 1</span>
+                                <h3 class="text-xl font-bold mt-1 mb-3">Grunty i masy</h3>
+                                <p class="text-sm text-[#3A332D]">
+                                    Grunty poliuretanowe, epoksydowe oraz dyspersyjne wzmacniające podłoże i blokujące wilgoć, a także masy wyrównujące.
+                                </p>
+                            </div>
+
+                            <div class="craft-card p-6">
+                                <span class="text-xs font-bold uppercase tracking-wider text-[#9E6B3B]">Krok 2</span>
+                                <h3 class="text-xl font-bold mt-1 mb-3">Kleje do parkietu</h3>
+                                <p class="text-sm text-[#3A332D]">
+                                    Nowoczesne, trwale elastyczne kleje silanowe (MS-polimerowe) oraz poliuretanowe dwuskładnikowe zapewniające najwyższą siłę wiązania.
+                                </p>
+                            </div>
+
+                            <div class="craft-card p-6">
+                                <span class="text-xs font-bold uppercase tracking-wider text-[#9E6B3B]">Krok 3</span>
+                                <h3 class="text-xl font-bold mt-1 mb-3">Lakiery i olejowoski</h3>
+                                <p class="text-sm text-[#3A332D]">
+                                    Ekologiczne lakiery wodne o wysokiej odporności na ścieranie (w tym głębokie maty) oraz naturalne oleje i woski Berger-Seidle.
+                                </p>
+                            </div>
+
+                            <div class="craft-card p-6">
+                                <span class="text-xs font-bold uppercase tracking-wider text-[#9E6B3B]">Krok 4</span>
+                                <h3 class="text-xl font-bold mt-1 mb-3">Środki pielęgnacyjne</h3>
+                                <p class="text-sm text-[#3A332D]">
+                                    Koncentraty myjące, mleczka konserwujące i pasty do bieżącej pielęgnacji podłóg lakierowanych i olejowanych.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- =================================================================
+             PODSTRONA 5: OSUSZANIE BUDYNKÓW (#osuszanie)
+             ================================================================= -->
+        <div id="page-osuszanie" class="page-view">
+            <section class="bg-[#F0EBE1] border-b border-[#E2D9CC] py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <nav class="text-xs sm:text-sm text-[#6E655D] mb-4 flex items-center gap-2">
+                        <a href="#home" data-route="home" class="hover:text-[#9E6B3B]">Strona główna</a>
+                        <span>/</span>
+                        <span>Oferta</span>
+                        <span>/</span>
+                        <span class="text-[#1F1B18] font-semibold">Osuszanie budynków</span>
+                    </nav>
+                    <h1 class="text-3xl sm:text-5xl font-bold text-[#1F1B18]">Profesjonalne osuszanie budynków</h1>
+                    <p class="text-[#3A332D] text-base sm:text-lg max-w-3xl mt-4">
+                        Zbyt wysoka wilgotność podłoża to najczęstszy wróg drewnianych podłóg i zdrowego mikroklimatu. Oferujemy kompleksowe pomiary oraz osuszanie budynków przed pracami wykończeniowymi i po zalaniach.
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
+                        <div class="craft-card p-8">
+                            <span class="inline-block px-3 py-1 rounded-lg bg-[#F0EBE1] text-[#9E6B3B] text-xs font-bold uppercase tracking-wider mb-4">
+                                Przed montażem podłóg
+                            </span>
+                            <h2 class="text-2xl font-bold mb-3">Osuszanie wylewek i tynków</h2>
+                            <p class="text-sm sm:text-base text-[#3A332D] leading-relaxed">
+                                Aby bezpiecznie ułożyć parkiet dębowy czy jesionowy, wilgotność podkładu cementowego nie może przekraczać <strong>2,0% CM</strong> (a przy ogrzewaniu podłogowym <strong>1,8% CM</strong>). W okresach jesienno-zimowych naturalne wysychanie wylewek trwa miesiącami. Nasze osuszacze kondensacyjne pozwalają bezpiecznie przyspieszyć ten proces bez ryzyka pękania posadzki.
+                            </p>
+                        </div>
+
+                        <div class="craft-card p-8">
+                            <span class="inline-block px-3 py-1 rounded-lg bg-[#F0EBE1] text-[#9E6B3B] text-xs font-bold uppercase tracking-wider mb-4">
+                                Sytuacje awaryjne
+                            </span>
+                            <h2 class="text-2xl font-bold mb-3">Osuszanie po zalaniach i awariach</h2>
+                            <p class="text-sm sm:text-base text-[#3A332D] leading-relaxed">
+                                Szybka reakcja po awarii instalacji wodnej lub zalaniu mieszkania pozwala uratować strukturę ścian, posadzek oraz zapobiega rozwojowi grzybów i pleśni. Dobieramy wydajność urządzeń do kubatury pomieszczeń i monitorujemy postępy aż do uzyskania normatywnych parametrów.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Etapy usługi -->
+                    <div class="bg-white rounded-3xl border border-[#E2D9CC] p-8 sm:p-12">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">Jak przebiega proces osuszania?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="text-center space-y-3">
+                                <div class="w-12 h-12 rounded-full bg-[#1F1B18] text-white font-serif-brand font-bold text-lg flex items-center justify-center mx-auto">1</div>
+                                <h4 class="text-lg font-bold">Diagnostyka i pomiary</h4>
+                                <p class="text-sm text-[#6E655D]">Wykonujemy pomiary wilgotności ścian, tynków oraz wylewek profesjonalnymi miernikami.</p>
+                            </div>
+                            <div class="text-center space-y-3">
+                                <div class="w-12 h-12 rounded-full bg-[#9E6B3B] text-white font-serif-brand font-bold text-lg flex items-center justify-center mx-auto">2</div>
+                                <h4 class="text-lg font-bold">Dobór i montaż sprzętu</h4>
+                                <p class="text-sm text-[#6E655D]">Ustawiamy wydajne osuszacze powietrza i cyrkulatory optymalizujące przepływ powietrza w budynku.</p>
+                            </div>
+                            <div class="text-center space-y-3">
+                                <div class="w-12 h-12 rounded-full bg-[#1F1B18] text-white font-serif-brand font-bold text-lg flex items-center justify-center mx-auto">3</div>
+                                <h4 class="text-lg font-bold">Pomiar końcowy</h4>
+                                <p class="text-sm text-[#6E655D]">Potwierdzamy osiągnięcie bezpiecznego poziomu wilgotności – gotowego pod układanie parkietu.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 text-center">
+                            <a href="#kontakt" data-route="kontakt" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold btn-primary">
+                                <span>Zamów pomiar wilgotności i wycenę osuszania</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- =================================================================
+             PODSTRONA 6: REALIZACJE / GALERIA (#realizacje)
+             ================================================================= -->
+        <div id="page-realizacje" class="page-view">
+            <section class="bg-[#F0EBE1] border-b border-[#E2D9CC] py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <nav class="text-xs sm:text-sm text-[#6E655D] mb-4 flex items-center gap-2">
+                        <a href="#home" data-route="home" class="hover:text-[#9E6B3B]">Strona główna</a>
+                        <span>/</span>
+                        <span class="text-[#1F1B18] font-semibold">Realizacje</span>
+                    </nav>
+                    <h1 class="text-3xl sm:text-5xl font-bold text-[#1F1B18]">Galeria realizacji</h1>
+                    <p class="text-[#3A332D] text-base sm:text-lg max-w-3xl mt-4">
+                        Zobacz przykłady podłóg wykonanych z naszego parkietu oraz renowacji przeprowadzonych przez naszych parkieciarzy. Kliknij dowolne zdjęcie, aby je powiększyć.
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-14 sm:py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Filtry kategorii -->
+                    <div class="flex flex-wrap items-center gap-2.5 mb-10" id="gallery-filters">
+                        <button type="button" data-filter="all" class="filter-btn active px-5 py-2.5 rounded-xl border border-[#E2D9CC] text-sm font-semibold transition">
+                            Wszystkie realizacje
+                        </button>
+                        <button type="button" data-filter="dab" class="filter-btn px-5 py-2.5 rounded-xl border border-[#E2D9CC] bg-white text-sm font-semibold text-[#1F1B18] hover:border-[#9E6B3B] transition">
+                            Parkiet Dębowy
+                        </button>
+                        <button type="button" data-filter="jodelka" class="filter-btn px-5 py-2.5 rounded-xl border border-[#E2D9CC] bg-white text-sm font-semibold text-[#1F1B18] hover:border-[#9E6B3B] transition">
+                            Układ w jodełkę
+                        </button>
+                        <button type="button" data-filter="renowacja" class="filter-btn px-5 py-2.5 rounded-xl border border-[#E2D9CC] bg-white text-sm font-semibold text-[#1F1B18] hover:border-[#9E6B3B] transition">
+                            Cyklinowanie i renowacja
+                        </button>
+                    </div>
+
+                    <!-- Siatka realizacji -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+                        <!-- Pozycja 1 -->
+                        <article class="gallery-item craft-card overflow-hidden group cursor-pointer" data-category="dab jodelka" data-title="Dąb Klasa I – Jodełka klasyczna" data-desc="Klepka dębowa 70x350 mm, lakier matowy Berger-Seidle.">
+                            <div class="aspect-[4/3] overflow-hidden bg-[#E2D9CC] relative">
+                                <img src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=900&q=85" alt="Dąb Klasa I – Jodełka klasyczna" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/800x600/C8B49E/1F1B18?text=D%C4%85b+Jode%C5%82ka';">
+                                <span class="absolute bottom-3 right-3 bg-[#1F1B18]/80 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs font-semibold text-[#9E6B3B] uppercase tracking-wider">Dąb • Jodełka</span>
+                                <h3 class="text-lg font-bold mt-1">Dąb Klasa I – Jodełka klasyczna</h3>
+                                <p class="text-sm text-[#6E655D] mt-1.5">Klepka dębowa 70x350 mm, lakier matowy Berger-Seidle.</p>
+                            </div>
+                        </article>
+
+                        <!-- Pozycja 2 -->
+                        <article class="gallery-item craft-card overflow-hidden group cursor-pointer" data-category="dab" data-title="Jasny jesion i dąb w salonie" data-desc="Wykończenie naturalnym olejowoskiem oraz białymi cokołami.">
+                            <div class="aspect-[4/3] overflow-hidden bg-[#E2D9CC] relative">
+                                <img src="https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=900&q=85" alt="Jasny parkiet olejowoskowany" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/800x600/D9C8B4/1F1B18?text=Olejowosk';">
+                                <span class="absolute bottom-3 right-3 bg-[#1F1B18]/80 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs font-semibold text-[#9E6B3B] uppercase tracking-wider">Olejowosk • Cegiełka</span>
+                                <h3 class="text-lg font-bold mt-1">Nowoczesny salon – olejowosk</h3>
+                                <p class="text-sm text-[#6E655D] mt-1.5">Wykończenie naturalnym olejowoskiem oraz dopasowanymi listwami.</p>
+                            </div>
+                        </article>
+
+                        <!-- Pozycja 3 -->
+                        <article class="gallery-item craft-card overflow-hidden group cursor-pointer" data-category="renowacja dab" data-title="Renowacja 40-letniego parkietu" data-desc="Bezpyłowe cyklinowanie, szpachlowanie szczelin i 3 warstwy lakieru.">
+                            <div class="aspect-[4/3] overflow-hidden bg-[#E2D9CC] relative">
+                                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=85" alt="Renowacja parkietu dębowego" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/800x600/B3987A/1F1B18?text=Renowacja';">
+                                <span class="absolute bottom-3 right-3 bg-[#1F1B18]/80 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs font-semibold text-[#9E6B3B] uppercase tracking-wider">Renowacja • Cyklinowanie</span>
+                                <h3 class="text-lg font-bold mt-1">Renowacja 40-letniego parkietu</h3>
+                                <p class="text-sm text-[#6E655D] mt-1.5">Bezpyłowe cyklinowanie, szpachlowanie szczelin i 3 warstwy lakieru.</p>
+                            </div>
+                        </article>
+
+                        <!-- Pozycja 4 -->
+                        <article class="gallery-item craft-card overflow-hidden group cursor-pointer" data-category="jodelka dab" data-title="Jodełka podwójna – Dąb Rustikal" data-desc="Wyrazisty rysunek słojów i sęków podkreślony olejem twardym.">
+                            <div class="aspect-[4/3] overflow-hidden bg-[#E2D9CC] relative">
+                                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=900&q=85" alt="Jodełka podwójna Dąb Rustikal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/800x600/C9B39B/1F1B18?text=Jode%C5%82ka+Rustikal';">
+                                <span class="absolute bottom-3 right-3 bg-[#1F1B18]/80 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs font-semibold text-[#9E6B3B] uppercase tracking-wider">Dąb Rustikal • Jodełka</span>
+                                <h3 class="text-lg font-bold mt-1">Jodełka podwójna – Dąb Rustikal</h3>
+                                <p class="text-sm text-[#6E655D] mt-1.5">Wyrazisty rysunek słojów i sęków podkreślony olejem twardym.</p>
+                            </div>
+                        </article>
+
+                        <!-- Pozycja 5 -->
+                        <article class="gallery-item craft-card overflow-hidden group cursor-pointer" data-category="renowacja" data-title="Odnowienie parkietu bukowego" data-desc="Szlifowanie tarczowe i zabezpieczenie lakierem półmatowym SLC.">
+                            <div class="aspect-[4/3] overflow-hidden bg-[#E2D9CC] relative">
+                                <img src="https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?auto=format&fit=crop&w=900&q=85" alt="Odnowienie parkietu bukowego" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/800x600/B8936C/1F1B18?text=Buk+Renowacja';">
+                                <span class="absolute bottom-3 right-3 bg-[#1F1B18]/80 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs font-semibold text-[#9E6B3B] uppercase tracking-wider">Renowacja • Buk</span>
+                                <h3 class="text-lg font-bold mt-1">Odnowienie parkietu bukowego</h3>
+                                <p class="text-sm text-[#6E655D] mt-1.5">Szlifowanie tarczowe i zabezpieczenie lakierem półmatowym SLC.</p>
+                            </div>
+                        </article>
+
+                        <!-- Pozycja 6 -->
+                        <article class="gallery-item craft-card overflow-hidden group cursor-pointer" data-category="dab" data-title="Kompleksowy montaż z listwami" data-desc="Parkiet dębowy ułożony na kleju silanowym wraz z listwami dębowymi.">
+                            <div class="aspect-[4/3] overflow-hidden bg-[#E2D9CC] relative">
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85" alt="Kompleksowy montaż z listwami" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/800x600/D1C2B0/1F1B18?text=Monta%C5%BC+z+listwami';">
+                                <span class="absolute bottom-3 right-3 bg-[#1F1B18]/80 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs font-semibold text-[#9E6B3B] uppercase tracking-wider">Dąb • Wykończenie</span>
+                                <h3 class="text-lg font-bold mt-1">Kompleksowy montaż z listwami</h3>
+                                <p class="text-sm text-[#6E655D] mt-1.5">Parkiet dębowy ułożony na kleju silanowym wraz z listwami dębowymi.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- =================================================================
+             PODSTRONA 7: CENNIK (#cennik)
+             ================================================================= -->
+        <div id="page-cennik" class="page-view">
+            <section class="bg-[#F0EBE1] border-b border-[#E2D9CC] py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <nav class="text-xs sm:text-sm text-[#6E655D] mb-4 flex items-center gap-2">
+                        <a href="#home" data-route="home" class="hover:text-[#9E6B3B]">Strona główna</a>
+                        <span>/</span>
+                        <span class="text-[#1F1B18] font-semibold">Cennik</span>
+                    </nav>
+                    <h1 class="text-3xl sm:text-5xl font-bold text-[#1F1B18]">Orientacyjny cennik parkietów i usług</h1>
+                    <p class="text-[#3A332D] text-base sm:text-lg max-w-3xl mt-4">
+                        Poniższe zestawienie prezentuje przykładowe stawki orientacyjne netto/brutto (do aktualizacji przed publikacją). Przy większych metrażach oraz kompleksowym zamówieniu parkietu wraz z montażem przygotowujemy indywidualną kalkulację.
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+                    
+                    <!-- Tabela 1: Cennik parkietów -->
+                    <div class="craft-card overflow-hidden">
+                        <div class="p-6 sm:p-8 border-b border-[#E2D9CC] bg-[#FAF8F5]">
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Prosto z wytwórni</span>
+                            <h2 class="text-2xl sm:text-3xl font-bold mt-1">Klepka parkietowa (grubość 22 mm, wilgotność 6–8%)</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm sm:text-base">
+                                <thead>
+                                    <tr class="bg-[#F0EBE1]/60 border-b border-[#E2D9CC] text-[#1F1B18]">
+                                        <th class="py-4 px-6 font-bold">Gatunek drewna</th>
+                                        <th class="py-4 px-6 font-bold">Klasa jakości</th>
+                                        <th class="py-4 px-6 font-bold">Wymiary standardowe</th>
+                                        <th class="py-4 px-6 font-bold text-right">Cena orientacyjna</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-[#E2D9CC]">
+                                    <tr class="hover:bg-[#FAF8F5]">
+                                        <td class="py-4 px-6 font-bold text-[#1F1B18]">Dąb</td>
+                                        <td class="py-4 px-6">Klasa I (Natur)</td>
+                                        <td class="py-4 px-6 text-[#6E655D]">50–70 × 250–500 × 22 mm</td>
+                                        <td class="py-4 px-6 text-right font-bold text-[#9E6B3B]">od 145 zł / m²</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#FAF8F5]">
+                                        <td class="py-4 px-6 font-bold text-[#1F1B18]">Dąb</td>
+                                        <td class="py-4 px-6">Klasa II (Rustikal)</td>
+                                        <td class="py-4 px-6 text-[#6E655D]">50–70 × 250–500 × 22 mm</td>
+                                        <td class="py-4 px-6 text-right font-bold text-[#9E6B3B]">od 115 zł / m²</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#FAF8F5]">
+                                        <td class="py-4 px-6 font-bold text-[#1F1B18]">Jesion</td>
+                                        <td class="py-4 px-6">Klasa I (Natur)</td>
+                                        <td class="py-4 px-6 text-[#6E655D]">50–70 × 250–500 × 22 mm</td>
+                                        <td class="py-4 px-6 text-right font-bold text-[#9E6B3B]">od 130 zł / m²</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#FAF8F5]">
+                                        <td class="py-4 px-6 font-bold text-[#1F1B18]">Jesion</td>
+                                        <td class="py-4 px-6">Klasa II (Rustikal)</td>
+                                        <td class="py-4 px-6 text-[#6E655D]">50–70 × 250–500 × 22 mm</td>
+                                        <td class="py-4 px-6 text-right font-bold text-[#9E6B3B]">od 105 zł / m²</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#FAF8F5]">
+                                        <td class="py-4 px-6 font-bold text-[#1F1B18]">Buk</td>
+                                        <td class="py-4 px-6">Klasa I (Natur)</td>
+                                        <td class="py-4 px-6 text-[#6E655D]">50–70 × 250–500 × 22 mm</td>
+                                        <td class="py-4 px-6 text-right font-bold text-[#9E6B3B]">od 95 zł / m²</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tabela 2: Cennik usług parkieciarskich -->
+                    <div class="craft-card overflow-hidden">
+                        <div class="p-6 sm:p-8 border-b border-[#E2D9CC] bg-[#FAF8F5]">
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Robocizna mistrzowska</span>
+                            <h2 class="text-2xl sm:text-3xl font-bold mt-1">Usługi parkieciarskie (stawki orientacyjne)</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm sm:text-base">
+                                <thead>
+                                    <tr class="bg-[#F0EBE1]/60 border-b border-[#E2D9CC] text-[#1F1B18]">
+                                        <th class="py-4 px-6 font-bold">Rodzaj usługi</th>
+                                        <th class="py-4 px-6 font-bold">Zakres prac</th>
+                                        <th class="py-4 px-6 font-bold text-right">Cena orientacyjna</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-[#E2D9CC]">
+                                    <tr class="hover:bg-[#FAF8F5]">
+                                        <td class="py-4 px-6 font-bold text-[#1F1B18]">Kompleksowe ułożenie z wykończeniem</td>
+                                        <td class="py-4 px-6 text-[#6E655D]">Gruntowanie, klejenie, szlifowanie, szpachlowanie, 3x lakierowanie lub olejowanie</td>
+                                        <td class="py-4 px-6 text-right font-bold text-[#9E6B3B]">od 110 zł / m²</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#FAF8F5]">
+                                        <td class="py-4 px-6 font-bold text-[#1F1B18]">Cyklinowanie i lakierowanie (renowacja)</td>
+                                        <td class="py-4 px-6 text-[#6E655D]">Bezpyłowe szlifowanie starego parkietu, szpachlowanie ubytków, 3x lakier</td>
+                                        <td class="py-4 px-6 text-right font-bold text-[#9E6B3B]">od 65 zł / m²</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#FAF8F5]">
+                                        <td class="py-4 px-6 font-bold text-[#1F1B18]">Montaż listew przypodłogowych</td>
+                                        <td class="py-4 px-6 text-[#6E655D]">Docinanie i klejenie/mocowanie listew drewnianych lub cokołów</td>
+                                        <td class="py-4 px-6 text-right font-bold text-[#9E6B3B]">od 18 zł / mb</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#FAF8F5]">
+                                        <td class="py-4 px-6 font-bold text-[#1F1B18]">Pomiar wilgotności / Osuszanie budynku</td>
+                                        <td class="py-4 px-6 text-[#6E655D]">Badanie wylewki metodą CM oraz wynajem i obsługa osuszaczy</td>
+                                        <td class="py-4 px-6 text-right font-bold text-[#9E6B3B]">wycena indywidualna</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Nota informacyjna i CTA -->
+                    <div class="bg-[#F0EBE1] border border-[#E2D9CC] rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <p class="text-sm text-[#3A332D]">
+                            <strong>Ważna informacja:</strong> Podane ceny mają charakter informacyjny i nie stanowią oferty handlowej w rozumieniu Kodeksu Cywilnego. Ostateczny koszt zależy od wybranego wzoru ułożenia (np. jodełka), stanu podłoża oraz metrażu.
+                        </p>
+                        <a href="#kontakt" data-route="kontakt" class="px-6 py-3.5 rounded-xl font-semibold btn-primary shrink-0 w-full sm:w-auto text-center">
+                            Poproś o dokładną wycenę
+                        </a>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- =================================================================
+             PODSTRONA 8: KONTAKT (#kontakt)
+             ================================================================= -->
+        <div id="page-kontakt" class="page-view">
+            <section class="bg-[#F0EBE1] border-b border-[#E2D9CC] py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <nav class="text-xs sm:text-sm text-[#6E655D] mb-4 flex items-center gap-2">
+                        <a href="#home" data-route="home" class="hover:text-[#9E6B3B]">Strona główna</a>
+                        <span>/</span>
+                        <span class="text-[#1F1B18] font-semibold">Kontakt</span>
+                    </nav>
+                    <h1 class="text-3xl sm:text-5xl font-bold text-[#1F1B18]">Kontakt z wytwórnią</h1>
+                    <p class="text-[#3A332D] text-base sm:text-lg max-w-3xl mt-4">
+                        Zapraszamy do kontaktu telefonicznego, mailowego lub osobistego w naszej wytwórni. Chętnie pokażemy próbki poszczególnych gatunków drewna oraz doradzimy w wyborze chemii.
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                        
+                        <!-- Lewa kolumna: Dane firmy + stylizowana mapa -->
+                        <div class="lg:col-span-5 space-y-6">
+                            <div class="craft-card p-7 sm:p-8 space-y-6">
+                                <div>
+                                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#9E6B3B]">Dane teleadresowe (Prototyp)</span>
+                                    <h2 class="text-2xl font-bold mt-1">Wytwórnia Parkietów Miarecki</h2>
+                                </div>
+
+                                <div class="space-y-4 text-sm sm:text-base">
+                                    <div class="flex items-start gap-3.5">
+                                        <div class="w-10 h-10 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                        </div>
+                                        <div>
+                                            <p class="font-bold text-[#1F1B18]">Adres zakładu</p>
+                                            <p class="text-[#6E655D]">ul. Rzemieślnicza 14<br>00-001 Przykładowo (dane przykładowe)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-3.5">
+                                        <div class="w-10 h-10 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                                        </div>
+                                        <div>
+                                            <p class="font-bold text-[#1F1B18]">Telefon</p>
+                                            <a href="tel:+48500123456" class="text-[#9E6B3B] font-semibold hover:underline">+48 500 123 456</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-3.5">
+                                        <div class="w-10 h-10 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                        </div>
+                                        <div>
+                                            <p class="font-bold text-[#1F1B18]">Adres e-mail</p>
+                                            <a href="mailto:kontakt@parkiet-przyklad.pl" class="text-[#9E6B3B] font-semibold hover:underline">kontakt@parkiet-przyklad.pl</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-3.5">
+                                        <div class="w-10 h-10 rounded-xl bg-[#F0EBE1] text-[#9E6B3B] flex items-center justify-center shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        </div>
+                                        <div>
+                                            <p class="font-bold text-[#1F1B18]">Godziny otwarcia</p>
+                                            <p class="text-[#6E655D]">Pon – Pt: 08:00 – 17:00<br>Sobota: 09:00 – 13:00 (po kontakcie tel.)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Stylizowana sekcja mapy dojazdu -->
+                            <div class="craft-card overflow-hidden">
+                                <div class="h-56 bg-[#E6DFD3] relative flex flex-col items-center justify-center p-6 text-center wood-pattern-overlay">
+                                    <div class="w-12 h-12 rounded-full bg-[#9E6B3B] text-white flex items-center justify-center shadow-lg mb-3">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                    </div>
+                                    <p class="font-serif-brand font-bold text-lg text-[#1F1B18]">Mapa dojazdu do wytwórni</p>
+                                    <p class="text-xs text-[#6E655D] max-w-xs mt-1">
+                                        Miejsce na osadzenie interaktywnej mapy Google (iframe) po uzupełnieniu docelowego adresu firmy.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Prawa kolumna: Rozbudowany formularz kontaktowy -->
+                        <div class="lg:col-span-7">
+                            <div class="craft-card p-8 sm:p-10">
+                                <h2 class="text-2xl sm:text-3xl font-bold">Napisz do nas</h2>
+                                <p class="text-sm sm:text-base text-[#6E655D] mt-2">
+                                    Wypełnij poniższy formularz, aby zapytać o dostępność parkietu, zamówić bezpłatną wycenę montażu lub umówić pomiar wilgotności.
+                                </p>
+
+                                <form class="demo-contact-form mt-8 space-y-5">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-[#1F1B18] mb-1.5">Imię i nazwisko *</label>
+                                            <input type="text" required placeholder="Jan Kowalski"
+                                                class="w-full px-4 py-3 rounded-xl border border-[#E2D9CC] bg-[#FAF8F5] text-[#1F1B18] focus:outline-none focus:border-[#9E6B3B] focus:bg-white transition">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-[#1F1B18] mb-1.5">Telefon kontaktowy *</label>
+                                            <input type="tel" required placeholder="+48 500 000 000"
+                                                class="w-full px-4 py-3 rounded-xl border border-[#E2D9CC] bg-[#FAF8F5] text-[#1F1B18] focus:outline-none focus:border-[#9E6B3B] focus:bg-white transition">
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-[#1F1B18] mb-1.5">Adres e-mail</label>
+                                            <input type="email" placeholder="jan@przyklad.pl"
+                                                class="w-full px-4 py-3 rounded-xl border border-[#E2D9CC] bg-[#FAF8F5] text-[#1F1B18] focus:outline-none focus:border-[#9E6B3B] focus:bg-white transition">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-[#1F1B18] mb-1.5">Temat wiadomości</label>
+                                            <select class="w-full px-4 py-3 rounded-xl border border-[#E2D9CC] bg-[#FAF8F5] text-[#1F1B18] focus:outline-none focus:border-[#9E6B3B] focus:bg-white transition">
+                                                <option>Zakup parkietu (Dąb / Jesion / Buk)</option>
+                                                <option>Kompleksowy montaż podłogi</option>
+                                                <option>Cyklinowanie i renowacja</option>
+                                                <option>Osuszanie budynku</option>
+                                                <option>Listwy i chemia parkieciarska</option>
+                                                <option>Inne pytanie</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-semibold text-[#1F1B18] mb-1.5">Treść wiadomości *</label>
+                                        <textarea rows="5" required placeholder="Opisz krótko swoją inwestycję: przybliżony metraż, miejscowość oraz preferowany termin..."
+                                            class="w-full px-4 py-3 rounded-xl border border-[#E2D9CC] bg-[#FAF8F5] text-[#1F1B18] focus:outline-none focus:border-[#9E6B3B] focus:bg-white transition"></textarea>
+                                    </div>
+
+                                    <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold btn-primary inline-flex items-center justify-center gap-2">
+                                        <span>Wyślij wiadomość</span>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                    </button>
+
+                                    <div class="form-feedback hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm">
+                                        <strong>Wiadomość została wysłana!</strong> Dziękujemy za kontakt z wytwórnią Parkiet Miarecki. Odpowiemy najszybciej jak to możliwe.
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- =====================================================================
+         OKNO LIGHTBOX (Podgląd powiększonych zdjęć z galerii realizacji)
+         ===================================================================== -->
+    <div id="lightbox-modal" class="fixed inset-0 z-[100] hidden bg-[#1F1B18]/92 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8" role="dialog" aria-modal="true">
+        <div class="relative max-w-4xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl">
+            <button id="lightbox-close" type="button" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-[#1F1B18]/80 text-white hover:bg-[#9E6B3B] flex items-center justify-center transition" aria-label="Zamknij podgląd">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <div class="bg-[#1F1B18] max-h-[70vh] overflow-hidden flex items-center justify-center">
+                <img id="lightbox-img" src="" alt="" class="w-full h-auto max-h-[70vh] object-contain">
+            </div>
+            <div class="p-6 bg-white">
+                <h3 id="lightbox-title" class="text-xl font-bold text-[#1F1B18]"></h3>
+                <p id="lightbox-desc" class="text-sm text-[#6E655D] mt-1"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         WSPÓLNY FOOTER (Wspólny dla wszystkich 8 podstron)
+         ===================================================================== -->
+    <footer class="bg-[#1F1B18] text-[#FAF8F5]/80 pt-16 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                
+                <!-- Kolumna 1: Marka -->
+                <div class="space-y-4">
+                    <a href="#home" data-route="home" class="inline-flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-[#9E6B3B] flex items-center justify-center text-white">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 18L12 10L20 18" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4 12L12 4L20 12" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span class="font-serif-brand text-xl font-bold text-white">Parkiet Miarecki</span>
+                    </a>
+                    <p class="text-sm text-[#FAF8F5]/70 leading-relaxed">
+                        Tradycyjna wytwórnia parkietów z ponad 30-letnim doświadczeniem. Produkcja klepki z drewna sezonowanego oraz usługi uprawnionego mistrza parkieciarstwa.
+                    </p>
+                </div>
+
+                <!-- Kolumna 2: Oferta -->
+                <div>
+                    <h4 class="font-serif-brand text-white font-semibold text-lg mb-4">Oferta</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#parkiety" data-route="parkiety" class="hover:text-[#D8A36E] transition">Produkcja parkietów</a></li>
+                        <li><a href="#uslugi" data-route="uslugi" class="hover:text-[#D8A36E] transition">Usługi parkieciarskie</a></li>
+                        <li><a href="#listwy-chemia" data-route="listwy-chemia" class="hover:text-[#D8A36E] transition">Listwy wykończeniowe</a></li>
+                        <li><a href="#listwy-chemia" data-route="listwy-chemia" class="hover:text-[#D8A36E] transition">Chemia parkieciarska (SLC, Berger-Seidle)</a></li>
+                        <li><a href="#osuszanie" data-route="osuszanie" class="hover:text-[#D8A36E] transition">Osuszanie budynków</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolumna 3: Nawigacja -->
+                <div>
+                    <h4 class="font-serif-brand text-white font-semibold text-lg mb-4">Informacje</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#home" data-route="home" class="hover:text-[#D8A36E] transition">Strona główna</a></li>
+                        <li><a href="#realizacje" data-route="realizacje" class="hover:text-[#D8A36E] transition">Galeria realizacji</a></li>
+                        <li><a href="#cennik" data-route="cennik" class="hover:text-[#D8A36E] transition">Cennik parkietów i usług</a></li>
+                        <li><a href="#kontakt" data-route="kontakt" class="hover:text-[#D8A36E] transition">Kontakt i dojazd</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolumna 4: Szybki kontakt (Dane losowe) -->
+                <div>
+                    <h4 class="font-serif-brand text-white font-semibold text-lg mb-4">Kontakt</h4>
+                    <ul class="space-y-2.5 text-sm text-[#FAF8F5]/75">
+                        <li>Wytwórnia Parkietów Miarecki</li>
+                        <li>ul. Rzemieślnicza 14, 00-001 Przykładowo</li>
+                        <li class="pt-1">Tel: <a href="tel:+48500123456" class="text-white font-semibold hover:text-[#D8A36E]">+48 500 123 456</a></li>
+                        <li>E-mail: <a href="mailto:kontakt@parkiet-przyklad.pl" class="hover:text-[#D8A36E]">kontakt@parkiet-przyklad.pl</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#FAF8F5]/50">
+                <p>&copy; <span id="current-year">2026</span> Parkiet Miarecki. Wszelkie prawa zastrzeżone.</p>
+                <p>Nowoczesna witryna rzemieślnicza • HTML5 / CSS3 / JS</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =====================================================================
+         JAVASCRIPT: Nawigacja podstron, Menu mobilne, Filtry galerii, Lightbox
+         ===================================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const routes = ['home', 'parkiety', 'uslugi', 'listwy-chemia', 'osuszanie', 'realizacje', 'cennik', 'kontakt'];
+            const offerRoutes = ['parkiety', 'uslugi', 'listwy-chemia', 'osuszanie'];
+
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconOpen = document.getElementById('icon-open');
+            const iconClose = document.getElementById('icon-close');
+            const desktopOfferTrigger = document.getElementById('desktop-offer-trigger');
+
+            // Funkcja zamykająca menu mobilne
+            function closeMobileMenu() {
+                if (!mobileMenu) return;
+                mobileMenu.classList.add('hidden');
+                iconOpen.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+                menuBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            // 1. Przełączanie podstron (SPA Router)
+            function navigateTo(routeName, updateHash = true) {
+                const targetRoute = routes.includes(routeName) ? routeName : 'home';
+
+                // Ukryj wszystkie podstrony i pokaż wybraną
+                document.querySelectorAll('.page-view').forEach(section => {
+                    section.classList.toggle('active', section.id === `page-${targetRoute}`);
+                });
+
+                // Podświetl aktywny element w nawigacji
+                document.querySelectorAll('.nav-item').forEach(link => {
+                    const linkRoute = link.getAttribute('data-route');
+                    link.classList.toggle('nav-link-active', linkRoute === targetRoute);
+                });
+
+                // Podświetl przycisk "Oferta" jeśli jesteśmy na jednej z 4 podstron oferty
+                if (desktopOfferTrigger) {
+                    desktopOfferTrigger.classList.toggle('nav-link-active', offerRoutes.includes(targetRoute));
+                }
+
+                if (updateHash) {
+                    window.history.pushState(null, '', `#${targetRoute}`);
+                }
+
+                closeMobileMenu();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Nasłuchiwanie kliknięć w linki z atrybutem data-route
+            document.querySelectorAll('[data-route]').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const route = el.getAttribute('data-route');
+                    navigateTo(route);
+                });
+            });
+
+            // Obsługa przycisku Wstecz / Dalej w przeglądarce oraz bezpośredniego wejścia z hashem
+            window.addEventListener('hashchange', () => {
+                const hashRoute = window.location.hash.replace('#', '');
+                if (routes.includes(hashRoute)) {
+                    navigateTo(hashRoute, false);
+                }
+            });
+
+            const initialHash = window.location.hash.replace('#', '');
+            if (routes.includes(initialHash)) {
+                navigateTo(initialHash, false);
+            }
+
+            // 2. Menu mobilne (Hamburger)
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    const isHidden = mobileMenu.classList.contains('hidden');
+                    mobileMenu.classList.toggle('hidden');
+                    iconOpen.classList.toggle('hidden', isHidden);
+                    iconClose.classList.toggle('hidden', !isHidden);
+                    menuBtn.setAttribute('aria-expanded', String(isHidden));
+                });
+            }
+
+            // 3. Filtrowanie galerii realizacji
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.getAttribute('data-filter');
+
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.classList.add('bg-white', 'text-[#1F1B18]');
+                    });
+                    btn.classList.add('active');
+                    btn.classList.remove('bg-white', 'text-[#1F1B18]');
+
+                    galleryItems.forEach(item => {
+                        const categories = item.getAttribute('data-category') || '';
+                        if (filter === 'all' || categories.includes(filter)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // 4. Lightbox dla zdjęć w galerii
+            const lightboxModal = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxDesc = document.getElementById('lightbox-desc');
+            const lightboxClose = document.getElementById('lightbox-close');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    if (!img || !lightboxModal) return;
+
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    lightboxTitle.textContent = item.getAttribute('data-title') || '';
+                    lightboxDesc.textContent = item.getAttribute('data-desc') || '';
+                    lightboxModal.classList.remove('hidden');
+                });
+            });
+
+            if (lightboxClose && lightboxModal) {
+                lightboxClose.addEventListener('click', () => lightboxModal.classList.add('hidden'));
+                lightboxModal.addEventListener('click', (e) => {
+                    if (e.target === lightboxModal) {
+                        lightboxModal.classList.add('hidden');
+                    }
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !lightboxModal.classList.contains('hidden')) {
+                        lightboxModal.classList.add('hidden');
+                    }
+                });
+            }
+
+            // 5. Obsługa formularzy kontaktowych w prototypie
+            document.querySelectorAll('.demo-contact-form').forEach(form => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const feedback = form.querySelector('.form-feedback');
+                    if (feedback) {
+                        feedback.classList.remove('hidden');
+                    }
+                    form.reset();
+                });
+            });
+
+            // 6. Aktualny rok w stopce
+            const yearEl = document.getElementById('current-year');
+            if (yearEl) {
+                yearEl.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+</body>
+</html>
